@@ -1,8 +1,4 @@
-const towns = [
-    {id:1, name:'Munich',  pop: 1300000},
-    {id:2, name:'Berlin',  pop: 3500000},
-    {id:3, name:'Hamburg', pop: 2000000}
-];
+const towns = require('./towndata')
 
 function getTownById(id) {
     return towns.filter(
@@ -21,7 +17,7 @@ function getTownByName(name) {
 }
 
 var town = {
-    listTowns: function(req, res) {
+    list: function(req, res) {
         res.send(towns);    
     },
 
