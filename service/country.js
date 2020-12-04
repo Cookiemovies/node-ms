@@ -1,5 +1,7 @@
 const countries = require('./countrydata')
 
+const notFound = 'Country not found';
+
 /*
 [
     {
@@ -86,11 +88,13 @@ var country = {
         const countryId2 = req.params.id2;
         const found = getCountryById2(countryId2.toUpperCase());
         if (found) {
-            console.log('countryid2 found ok: ' + found.alpha2Code + "=" + found.name);
+            found.forEach(element => {
+                console.log('Countryid2 found: ' + element.alpha2Code + "="+ element.name);            
+            });
             res.send(found);
         } else {
-            console.log(`Country not found.`);
-            res.status(404).send(`Country not found.`);
+            console.log(notFound);
+            res.status(404).send(notFound);
         }
    },
 
@@ -98,11 +102,13 @@ var country = {
     const countryName = req.params.name;
     const found = getCountryByName(countryName);
     if (found) {
-        console.log('Country found ok: ' + found);
+        found.forEach(element => {
+            console.log('Countryname found: ' + element.name);            
+        });
         res.send(found);
     } else {
-        console.log(`Country not found.`);
-        res.status(404).send(`Country not found.`);
+        console.log(notFound);
+        res.status(404).send(notFound);
     }
 }
 };

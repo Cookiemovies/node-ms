@@ -3,7 +3,6 @@
 var properties = require('../package.json')
 var town = require('../service/town');
 var country = require('../service/country');
-var distance = require('../service/distance');
 
 var controllers = {
 
@@ -25,6 +24,14 @@ var controllers = {
 
     findTownId: function(req, res) {
         town.findId(req, res, function(err, foundTown) {
+            if (err)
+                res.send(err);
+            res.json(foundTown);
+        });
+    },
+
+    findTownCC: function(req, res) {
+        town.findCC(req, res, function(err, foundTown) {
             if (err)
                 res.send(err);
             res.json(foundTown);

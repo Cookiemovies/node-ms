@@ -5,9 +5,14 @@ This is an example how to implement a Microservice in Nodejs
 This API allows to get Country and Town data
 
 countrydata.js is an exported const from https://restcountries.eu/rest/v2/all
+The file stores all countries of the world with their most important data
 
-## Creare Docker Image
-## Build the image
+The API utilizes several calls to retrieve some data:
+
+
+## Build the Docker image
+
+With this command you can build your Dockerimage and execute it.
 ```
 docker build -f Dockerfile -t node-ms .
 ```

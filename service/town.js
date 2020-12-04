@@ -1,49 +1,73 @@
-const towns = require('./towndata')
+const { Pool } = require("pg");
 
-function getTownById(id) {
-    return towns.filter(
-        function(townfound) {
-            return townfound.id == id
-        }
-    );
-}
+const pool = new Pool({
+    user: "admin",
+    host: "localhost",
+    database: "divers",
+    password: "admin",
+    port: 5432,
+});
 
-function getTownByName(name) {
-    return towns.filter(
-        function(townfound) {
-            return townfound.name == name
-        }
-    );
+async function selectFromPG(column, value) {
+    // await client.connect();
+    const query = "SELECT * FROM alltowns WHERE " + column + "='" + value + "'";
+    const result = await pool.query(query);
+    // await client.end();
+    // console.log(result.rows);
+    return result.rows;
 }
 
 var town = {
-    list: function(req, res) {
-        res.send(towns);    
-    },
-
-    findId: function(req, res) {
-        const townId = parseInt(req.params.id);
-        const found = getTownById(townId);
+    list: async function (req, res) {
+        const found = await selectFromPG("1", "1");
         if (found) {
-            console.log('id found ok');
+            console.log("All Towns found");
             res.send(found);
         } else {
-            console.log(`Town not found.`);
-            res.status(404).send(`Town not found.`);
+            console.log("Towns not found");
+            res.status(404).send("Towns not found");
         }
-   },
+    },
 
-   findName: function(req, res) {
-    const townName = req.params.name;
-    const found = getTownByName(townName);
-    if (found) {
-        console.log('Town found ok');
-        res.send(found);
-    } else {
-        console.log(`Town not found.`);
-        res.status(404).send(`Town not found.`);
-    }
-}
+    findId: async function (req, res) {
+        const townId = req.params.id;
+        const found = await selectFromPG("geonameid", townId);
+        if (found) {
+            console.log("Town found by ID: " + townId);
+            res.send(found);
+        } else {
+            console.log("Town not found by ID: " + townId);
+            res.status(404).send("Town not found by ID: " + townId);
+        }
+    },
+
+    findName: async function (req, res) {
+        const townName = req.params.name;
+        const found = await selectFromPG("name", townName);
+        // console.log(found);
+
+        if (found) {
+            console.log("Town found by name: " + townName);
+            res.send(found);
+        } else {
+            console.log("Town not found by name: " + townName);
+            res.status(404).send("Town not found by name: " + townName);
+        }
+    },
+
+    findCC: async function (req, res) {
+        const townCC = req.params.cc;
+        const found = await selectFromPG("country_code", townCC);
+        // console.log(found);
+
+        if (found) {
+            console.log("Town found by country code: " + townCC);
+            res.send(found);
+        } else {
+            console.log("Town not found by country code: " + townCC);
+            res.status(404).send("Town not found by country code: " + townCC);
+        }
+    },
 };
 
 module.exports = town;

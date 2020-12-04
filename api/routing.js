@@ -11,8 +11,10 @@ module.exports = function(app) {
         .get(controller.townList);
     app.route('/townid/:id')
         .get(controller.findTownId);
-    app.route('/townname/:name')
+        app.route('/townname/:name')
         .get(controller.findTownName);
+        app.route('/towncc/:cc')
+        .get(controller.findTownCC);
     app.route('/countries')
         .get(controller.countryList);
     app.route('/countryid2/:id2')
