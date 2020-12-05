@@ -71,6 +71,14 @@ var controllers = {
         });
     },
 
+    findWeatherCondition: function(req, res) {
+        weather.findCondition(req, res, function(err, foundCondition) {
+            if (err)
+                res.send(err);
+            res.json(foundCondition);
+        });
+    },
+
     app: function(req, res) {
         res.send('This is the TOWN-COUNTRY-WEATHER API');
     },
