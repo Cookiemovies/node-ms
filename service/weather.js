@@ -1,6 +1,6 @@
 const axios = require('axios');
-const apiKey = 'fa270a60ae35c0288e6dd99491e5b6bd';
-
+const apiKey = process.env.WEATHERAPIKEY;
+console.log(apiKey)
 /*
 {
     "coord":
@@ -63,7 +63,7 @@ async function getWeather(townName) {
     try {
       const result = await axios(endpoint);
       const data = result.data;
-      console.log(data);
+      // console.log(data);
       return data;
     }
     catch (error) {
