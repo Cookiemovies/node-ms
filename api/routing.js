@@ -19,6 +19,8 @@ module.exports = function(app) {
         .get(controller.countryList);
     app.route('/countryid2/:id2')
         .get(controller.findCountryId2);
-    app.route('/countryname/:name')
+        app.route('/countryname/:name')
         .get(controller.findCountryName);
+    app.route('/weather/:name')
+        .get(controller.findWeatherName);
 };

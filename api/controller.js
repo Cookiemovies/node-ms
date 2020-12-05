@@ -3,6 +3,7 @@
 var properties = require('../package.json')
 var town = require('../service/town');
 var country = require('../service/country');
+var weather = require('../service/weather');
 
 var controllers = {
 
@@ -62,8 +63,16 @@ var controllers = {
         });
     },
 
+    findWeatherName: function(req, res) {
+        weather.findName(req, res, function(err, foundWeather) {
+            if (err)
+                res.send(err);
+            res.json(foundWeather);
+        });
+    },
+
     app: function(req, res) {
-        res.send('This is the TOWN-COUNTRY API');
+        res.send('This is the TOWN-COUNTRY-WEATHER API');
     },
     about: function(req, res) {
         var aboutInfo = {
