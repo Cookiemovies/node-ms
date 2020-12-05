@@ -1,6 +1,6 @@
 const axios = require('axios');
 const apiKey = process.env.WEATHERAPIKEY;
-console.log(apiKey)
+console.log(apiKey);
 /*
 {
     "coord":
