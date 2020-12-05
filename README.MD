@@ -18,18 +18,31 @@ For weather data openweathermap.org is used
 The API utilizes several calls to retrieve data:  
 
 localhost:3000/countries            -   Get all countries  
+Example: http://localhost:3000/countries  
+
 localhost:3000/countryname/:name    -   Get country by name  
+Example: http://localhost:3000/countryname/Germany  
+
 localhost:3000/countryid2/:id2      -   Get country by 2 digit country code  
+Example: http://localhost:3000/countryid2/DE  
 
 localhost:3000/towns                -   Get all towns (huge)  
+Example: http://localhost:3000/towns  
+
 localhost:3000/townid/:id           -   Get town by id  
+Example: http://localhost:3000/townid/1   
+
 localhost:3000/townname/:name       -   Get town by name  
+Example: http://localhost:3000/townname/Munich   
+
 localhost:3000/towncc/:cc           -   Get town by country code  
+Example: http://localhost:3000/towncc/DE   
 
 localhost:3000/weather/:name        -   Get weather by townname  
+Example: http://localhost:3000/weather/Munich   
 
-localhost:3000/weathercondition/:name  
-- Return a website with the Town, Weather Condition and Temperature  
+localhost:3000/weathercondition/:name  - Return a website with the Town, Weather Condition and Temperature  
+Example: http://localhost:3000/weathercondition/Munich   
 
 ## Build the Docker image
 
