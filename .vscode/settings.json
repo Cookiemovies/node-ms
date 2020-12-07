@@ -1,3 +1,9 @@
 {
-    "npm-scripts.showStartNotification": false
+    "npm-scripts.showStartNotification": false,
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/73c06fd5-25ff-4d4e-ad59-e2cee531d8e6/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/node-ms",
+    "appService.deploySubpath": "."
 }
