@@ -7,13 +7,27 @@ var config = {
     database: 'node-ms' 
     };
 
+async function selectAllFromSQL() {
+    const query = "SELECT * FROM cities";
+
+    try {
+        await sql.connect(config);
+        const result = await sql.query(query);
+        return result.recordset;
+    }
+    catch (err) {
+        console.log(err);
+        return "{"+ err +"}";
+    }
+}
+
 async function selectFromSQL(column, value) {
     const query = "SELECT * FROM cities WHERE " + column + "='" + value + "'";
 
     try {
         await sql.connect(config);
         const result = await sql.query(query);
-        return result.recordset[0];
+        return result.recordset;
     }
     catch (err) {
         console.log(err);
@@ -23,7 +37,7 @@ async function selectFromSQL(column, value) {
 
 var town = {
     list: async function (req, res) {
-        const found = await selectFromSQL("1", "1");
+        const found = await selectAllFromSQL();
         if (found) {
             console.log("All Towns found");
             res.send(found);
