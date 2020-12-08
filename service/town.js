@@ -31,7 +31,7 @@ async function selectFromSQL(column, value) {
     }
     catch (err) {
         console.log(err);
-        return "{"+ err +"}";
+        return "[{"+ err +"}]";
     }
 }
 
