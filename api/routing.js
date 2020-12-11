@@ -14,4 +14,6 @@ module.exports = function (app) {
   app.route("/countryname/:name").get(controller.findCountryName);
   app.route("/weather/:name").get(controller.findWeatherName);
   app.route("/weathercondition/:name").get(controller.findWeatherCondition);
+  app.route("/currency/:currname").get(controller.findCURR);
+  app.route("/currencies").get(controller.findALL);
 };

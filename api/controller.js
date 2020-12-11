@@ -4,8 +4,25 @@ var properties = require('../package.json')
 var town = require('../service/town');
 var country = require('../service/country');
 var weather = require('../service/weather');
+var currency = require('../service/currency');
 
 var controllers = {
+
+    findCURR: function(req, res) {
+        currency.findCURR(req, res, function(err, curr) {
+            if (err)
+                res.send(err);
+            res.send(curr);
+        });
+    },
+
+    findALL: function(req, res) {
+        currency.findALL(req, res, function(err, curr) {
+            if (err)
+                res.send(err);
+            res.send(curr);
+        });
+    },
 
     townList: function(req, res) {
         town.list(req, res, function(err, towns) {
