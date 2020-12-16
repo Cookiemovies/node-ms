@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: "nodemsk8s-d913"
+    labels:
+        app: "nodemsk8s-d913"
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: http
+    selector:
+        app: "nodemsk8s-d913"
