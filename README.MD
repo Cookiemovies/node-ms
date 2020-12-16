@@ -80,6 +80,15 @@ Don´t forget either to set the environment variables like WEATHERAPIKEY, SQLPAS
 docker run -e WEATHERAPIKEY -e SQLPASS -e PORT -p 3000:3000 --name node-ms -d node-ms
 ```
 
+## Upload image to Azure
+
+```
+az acr login --name kochloefl
+docker login kochloefl.azurecr.io
+docker tag node-ms kochloefl.azurecr.io/node-ms
+az acr repository list --name kochloefl --output table
+```
+
 ## Stop and remove the image
 
 ```
