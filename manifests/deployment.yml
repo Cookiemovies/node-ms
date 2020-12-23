@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "nodemsk8s-d913"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "nodemsk8s-d913"
+  template:
+    metadata:
+      labels:
+        app: "nodemsk8s-d913"
+    spec:
+      containers:
+        - name: "nodemsk8s-d913"
+          image: "kochloefl.azurecr.io/nodemsk8s"
+          ports:
+          - containerPort: 3000
