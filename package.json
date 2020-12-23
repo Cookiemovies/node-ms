@@ -4,14 +4,12 @@
   "description": "Microservice in Node",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "startnode": "node server.js"
+    "start": "node server.js"
   },
-  "author": "",
+  "author": "Martin Kochloefl",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "pg": "^8.5.1",
     "request": "^2.88.2",
     "xmlhttprequest": "^1.8.0"
   },
