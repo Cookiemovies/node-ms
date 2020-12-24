@@ -29,6 +29,7 @@ jobs:
             resource-group: appsvc_linux_centralus
             dns-name-label: node-ms
             image: kochloefl.azurecr.io/node-ms:${{ github.sha }}
+            registry-login-server: kochloefl.azurecr.io
             registry-username: ${{ secrets.ACR_KOCHLOEFL_USERNAME }}
             registry-password: ${{ secrets.ACR_KOCHLOEFL_PASSWORD }}
             name: node-ms-container

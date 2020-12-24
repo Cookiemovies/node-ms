@@ -92,6 +92,7 @@ az acr repository list --name kochloefl --output table
 ## Create Azure Credentials for github
   
 az ad sp create-for-rbac --name "node-ms-app" --role contributor --scopes /subscriptions/xxx/resourceGroups/xxx --sdk-auth
+
   
 ## Stop and remove the image
 
