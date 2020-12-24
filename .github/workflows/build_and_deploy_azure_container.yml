@@ -15,7 +15,7 @@ jobs:
             username: ${{ secrets.ACR_KOCHLOEFL_USERNAME }}
             password: ${{ secrets.ACR_KOCHLOEFL_PASSWORD }}
         - run: |
-            docker build .t kochloefl.azurecr.io/node-ms:${{ github.sha }}
+            docker build -t kochloefl.azurecr.io/node-ms:${{ github.sha }} .
             docker push kochloefl.azurecr.io/node-ms:${{ github.sha }}
 
         - name: 'Deploy to Azure Container Instances'
