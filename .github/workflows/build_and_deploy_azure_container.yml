@@ -5,21 +5,21 @@ jobs:
     build-container-and-deploy-azure:
         runs-on: ubuntu-latest
         steps:
-        # checkout the repo
+        # 1. checkout the repo
         - name: 'Checkout GitHub Action'
           uses: actions/checkout@master
           
-        # docker login
+        # 2. docker login
         - uses: azure/docker-login@v1
           with:
-            login-server: kochloefl.azurecr.io
+            login-server: ${{ secrets.AZR }}
             username: ${{ secrets.ACR_KOCHLOEFL_USERNAME }}
             password: ${{ secrets.ACR_KOCHLOEFL_PASSWORD }}
         
-        # docker build and push to azure repo kochloefl.azurecr.io
+        # 3. docker build and push to azure repo kochloefl.azurecr.io
         - run: |
-            docker build -t kochloefl.azurecr.io/node-ms:${{ github.sha }} .
-            docker push kochloefl.azurecr.io/node-ms:${{ github.sha }}
+            docker build -t ${{ secrets.AZR }}/node-ms:${{ github.sha }} .
+            docker push ${{ secrets.AZR }}/node-ms:${{ github.sha }}
 
         # azure cli login, credentials from secret
         - uses: azure/login@v1
@@ -32,8 +32,8 @@ jobs:
           with:
             resource-group: appsvc_linux_centralus
             dns-name-label: node-ms
-            image: kochloefl.azurecr.io/node-ms:${{ github.sha }}
-            registry-login-server: kochloefl.azurecr.io
+            image: ${{ secrets.AZR }}/node-ms:${{ github.sha }}
+            registry-login-server: ${{ secrets.AZR }}
             registry-username: ${{ secrets.ACR_KOCHLOEFL_USERNAME }}
             registry-password: ${{ secrets.ACR_KOCHLOEFL_PASSWORD }}
             name: node-ms-container

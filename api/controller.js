@@ -2,6 +2,10 @@
 
 var properties = require('../package.json')
 var town = require('../service/town');
+// var town = require('../service/town-azure');
+// var town = require('../service/town-pg');
+// var town = require('../service/town-sql');
+
 var country = require('../service/country');
 var weather = require('../service/weather');
 var currency = require('../service/currency');

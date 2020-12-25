@@ -4,21 +4,32 @@ This is an example how to implement different Microservices in Nodejs
 
 This API allows to get Country, Town, Weather, and Currency data  
 
-## COUNTRY DATA - EXAMPLE FOR LOCAL STORED JSON DATA
+## COUNTRY DATA - EXAMPLE FOR STORED JSON DATA
 countrydata.js is an exported const from https://restcountries.eu/rest/v2/all  
 The file stores all countries of the world with their most important data  
+  
+The country data is stored in countrydata.js
 
-## TOWN DATA  1- EXAMPLE FOR LOCAL DATABASE ACCESS
-For town data a local PostgreSQL database is used.  
+## TOWN DATA 1 - EXAMPLE FOR LOCAL POSTGRES DATABASE ACCESS
+
+For town data a local PostgreSQL or SQL Server database is used.  
+In order to use the local Postgres example you need to use town-pg.js.  
+
 This data can be retrieved by using PostgreSQL from Docker in this repo:  
 https://github.com/Cookiemovies/postgresql  
 
 Once the PostgreSQL container is running, this API can access the POSTGRESQL data.  
-In order to use this you must rename town-pg.js to town.js (Backup town.js first).  
+In order to use this you must uncomment require town-pg in controller.js.  
 
-## TOWN DATA  2- EXAMPLE USING SQL SERVER RUNNING ON AZURE
+## TOWN DATA 2 - EXAMPLE USING LOCAL SQL SERVER
+For town data a local SQL Server database used.  
+In order to use this you must uncomment require town-sql in controller.js.  
+You must have either a running local SQL Server on your machine or in Docker.
+
+## TOWN DATA 3 - EXAMPLE USING SQL SERVER RUNNING ON AZURE
 For town data a SQL Server database on Azure is used.  
-Ping me when you want to try, as you need an account on my SQL Server
+In order to use this you must uncomment require town-azure in controller.js.  
+You must have a running SQL Server on Azure.
 
 ## WEATHER DATA  
 For weather data openweathermap.org API is used.  
@@ -28,10 +39,12 @@ You can retrieve your API key at any time, when you sign in to your openweatherm
 ## CURRENCY DATA  
 For currency data cnb.cz is used. Their API returns a txt file with major currencies in comparison to CZK.   
 This txt file is then converted to JSON format.
+This example is only valuable for converting CZK to other currencies.
 
 ## API Calls
 
 The API utilizes several calls to retrieve data:  
+(When deploying node-ms as a Docker Container on Azure then use your URI shown in Aure)  
 
 localhost:3000/countries            -   Get all countries  
 Example: http://localhost:3000/countries  
@@ -74,16 +87,32 @@ docker build -f Dockerfile -t node-ms .
 ```
 ## Run the image
 
-With this command you can run your created Dockerimage.  
+With this command you can run your created Dockerimage locally.  
 Don´t forget either to set the environment variables like WEATHERAPIKEY, SQLPASS and PORT on your host or pass it with -e on the run conmand.  
+  
 ```
 docker run -e WEATHERAPIKEY -e SQLPASS -e PORT -p 3000:3000 --name node-ms -d node-ms
 ```
     
-## Stop and remove the image
+## Stop and Remove the Image
 
 ```
 docker container stop node-ms
 docker container rm node-ms
 
 ```
+  
+## Deploying Docker Image to Azure
+  
+When you want to deploy this dockerimage to Azure just use the Github actions in this repository.  
+Don´t forget to set all necessary environment variables as secrets in this repository.  
+  
+## Github Actions Script
+  
+**The script will do 5 steps:**  
+  
+* Checkout from GitHub  
+* Login with your Azure Account  
+* Login to your Azure Registry  
+* Build the Dockerimage and push the image to Azure  
+* Deploy the Container to Azure  

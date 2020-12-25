@@ -1,25 +1,43 @@
-const { Pool } = require("pg");
+var sql = require("mssql");
 
-const pool = new Pool({
-    user: process.env.LOCALPGUSER,
-    host: process.env.LOCALPGSERVER,
-    database: process.env.LOCALPGDATABASE,
-    password: process.env.LOCALPGPASS,
-    port: 5432,
-});
+var config = {
+    user: process.env.AZURESQLUSER,
+    password: process.env.AZURESQLPASS,
+    server: process.env.AZURESQLSERVER, 
+    database: process.env.AZURESQLDATABASE
+    };
 
-async function selectFromPG(column, value) {
-    // await client.connect();
-    const query = "SELECT * FROM alltowns WHERE " + column + "='" + value + "'";
-    const result = await pool.query(query);
-    // await client.end();
-    // console.log(result.rows);
-    return result.rows;
+async function selectAllFromSQL() {
+    const query = "SELECT * FROM cities";
+
+    try {
+        await sql.connect(config);
+        const result = await sql.query(query);
+        return result.recordset;
+    }
+    catch (err) {
+        console.log(err);
+        return "{"+ err +"}";
+    }
+}
+
+async function selectFromSQL(column, value) {
+    const query = "SELECT * FROM cities WHERE " + column + "='" + value + "'";
+
+    try {
+        await sql.connect(config);
+        const result = await sql.query(query);
+        return result.recordset;
+    }
+    catch (err) {
+        console.log(err);
+        return "[{"+ err +"}]";
+    }
 }
 
 var town = {
     list: async function (req, res) {
-        const found = await selectFromPG("1", "1");
+        const found = await selectAllFromSQL();
         if (found) {
             console.log("All Towns found");
             res.send(found);
@@ -31,7 +49,7 @@ var town = {
 
     findId: async function (req, res) {
         const townId = req.params.id;
-        const found = await selectFromPG("geonameid", townId);
+        const found = await selectFromSQL("geonameid", townId);
         if (found) {
             console.log("Town found by ID: " + townId);
             res.send(found);
@@ -43,7 +61,7 @@ var town = {
 
     findName: async function (req, res) {
         const townName = req.params.name;
-        const found = await selectFromPG("name", townName);
+        const found = await selectFromSQL("name", townName);
         // console.log(found);
 
         if (found) {
@@ -57,7 +75,7 @@ var town = {
 
     findCC: async function (req, res) {
         const townCC = req.params.cc;
-        const found = await selectFromPG("country_code", townCC);
+        const found = await selectFromSQL("country_code", townCC);
         // console.log(found);
 
         if (found) {
@@ -66,7 +84,7 @@ var town = {
         } else {
             console.log("Town not found by country code: " + townCC);
             res.status(404).send("Town not found by country code: " + townCC);
-        }
+        }[]
     },
 };
 
