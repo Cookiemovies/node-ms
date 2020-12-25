@@ -101,7 +101,8 @@ var controllers = {
     },
 
     app: function(req, res) {
-        res.send('This is the TOWN-COUNTRY-WEATHER API');
+        res.sendFile(__dirname + '/index.html');
+        // res.send('This is the TOWN-COUNTRY-WEATHER-CURRENCY API');
     },
     about: function(req, res) {
         var aboutInfo = {
