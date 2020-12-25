@@ -37,6 +37,7 @@ jobs:
             registry-username: ${{ secrets.ACR_KOCHLOEFL_USERNAME }}
             registry-password: ${{ secrets.ACR_KOCHLOEFL_PASSWORD }}
             name: node-ms-container
+            ports: 80,3000
             location: 'Central US'
             environment-variables: PORT=3000
             secure-environment-variables: WEATHERAPIKEY=${{ secrets.WEATHERAPIKEY }} SQLPASS=${{ secrets.SQLPASS }}
