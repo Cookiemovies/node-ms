@@ -33,3 +33,4 @@ jobs:
             registry-username: ${{ secrets.ACR_KOCHLOEFL_USERNAME }}
             registry-password: ${{ secrets.ACR_KOCHLOEFL_PASSWORD }}
             name: node-ms-container
+            location: 'Central US'
