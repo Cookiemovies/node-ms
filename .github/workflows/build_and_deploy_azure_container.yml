@@ -1,28 +1,32 @@
 on: [push]
-name: Kochloefl-Deploy-Azure
+name: Kochloefl-Build-Container-and-Deploy-to-Azure
 
 jobs:
-    build-and-deploy:
+    build-container-and-deploy-azure:
         runs-on: ubuntu-latest
         steps:
         # checkout the repo
         - name: 'Checkout GitHub Action'
           uses: actions/checkout@master
           
+        # docker login
         - uses: azure/docker-login@v1
           with:
             login-server: kochloefl.azurecr.io
             username: ${{ secrets.ACR_KOCHLOEFL_USERNAME }}
             password: ${{ secrets.ACR_KOCHLOEFL_PASSWORD }}
-            
+        
+        # docker build and push to azure repo kochloefl.azurecr.io
         - run: |
             docker build -t kochloefl.azurecr.io/node-ms:${{ github.sha }} .
             docker push kochloefl.azurecr.io/node-ms:${{ github.sha }}
 
+        # azure cli login, credentials from secret
         - uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+        # azure deploy container
         - name: 'Deploy to Azure Container Instances'
           uses: 'azure/aci-deploy@v1'
           with:
@@ -34,3 +38,5 @@ jobs:
             registry-password: ${{ secrets.ACR_KOCHLOEFL_PASSWORD }}
             name: node-ms-container
             location: 'Central US'
+            environment-variables: PORT=3000
+            secure-environment-variables: WEATHERAPIKEY=${{ secrets.WEATHERAPIKEY }} SQLPASS=${{ secrets.SQLPASS }}
