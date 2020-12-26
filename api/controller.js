@@ -5,6 +5,7 @@ var town = require('../service/town');
 // var town = require('../service/town-azure');
 // var town = require('../service/town-pg');
 // var town = require('../service/town-sql');
+// var town = require('../service/town-dsql');
 
 var country = require('../service/country');
 var weather = require('../service/weather');
