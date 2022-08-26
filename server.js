@@ -1,7 +1,11 @@
 const express = require('express')
 const app = express();
-const port = 80;
-const host = 'azure';
+
+const port = 3000;
+const host = 'localhost';
+
+// const port = 80;
+// const host = 'azure';
 
 const routing = require('./api/routing');
 routing(app);
